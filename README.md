@@ -75,22 +75,18 @@ Here is a simple example that can easily be scaled to whatever degree you desire
 - (void)viewDidLoad {
 	[super viewDidLoad];
 	
-	// Create our simple cell that will display an alert when selected.
 	OrganicCell *helloWorldCell = [OrganicCell cellWithStyle:UITableViewCellStyleDefault height:40 actionBlock:^{
 		[[[UIAlertView alloc] initWithTitle:@"Hello World" message:@"Organic is awesome!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 	}];
 	helloWorldCell.textLabel.text = @"Say Hello";
 	
-	// Create another similar cell that will display a different alert.
 	OrganicCell *goodbyeWorldCell = [OrganicCell cellWithStyle:UITableViewCellStyleDefault height:55 actionBlock:^{
 		[[[UIAlertView alloc] initWithTitle:@"Goodbye World" message:@"Toodles!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 	}];
 	goodbyeWorldCell = @"Say Goodbye";
 	
-	// Create our section with a nice obliging title and add our cells to it.
-	OrganicSection = * mySection = [OrganicSection sectionWithHeaderTitle:@"Welcome" cells:@[helloWorldCell, goodbyeWorldCell]];
+	OrganicSection = *mySection = [OrganicSection sectionWithHeaderTitle:@"Welcome" cells:@[helloWorldCell, goodbyeWorldCell]];
 	
-	// Set our section as the only section in the table view, and we're all done!
 	self.sections = @[mySection];
 }
 ```
