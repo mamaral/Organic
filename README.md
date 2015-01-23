@@ -83,7 +83,7 @@ Here is a simple example that can easily be scaled to whatever degree you desire
 	OrganicCell *goodbyeWorldCell = [OrganicCell cellWithStyle:UITableViewCellStyleDefault height:55 actionBlock:^{
 		[[[UIAlertView alloc] initWithTitle:@"Goodbye World" message:@"Toodles!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 	}];
-	goodbyeWorldCell = @"Say Goodbye";
+	goodbyeWorldCell.textLabel.text = @"Say Goodbye";
 	
 	OrganicSection = *mySection = [OrganicSection sectionWithHeaderTitle:@"Welcome" cells:@[helloWorldCell, goodbyeWorldCell]];
 	
