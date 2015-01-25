@@ -24,7 +24,7 @@ pod ‘Organic’
 Get Started
 ====
 
-Step 1. Subclass `OrganicCell`.
+Step 1. Subclass or create instances of `OrganicCell`.
 ---
 
 These cells encapsulate two major properties, `height` and `actionBlock`.
@@ -83,11 +83,21 @@ Here is a simple example that can easily be scaled to whatever degree you desire
 	OrganicCell *goodbyeWorldCell = [OrganicCell cellWithStyle:UITableViewCellStyleDefault height:55 actionBlock:^{
 		[[[UIAlertView alloc] initWithTitle:@"Goodbye World" message:@"Toodles!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
 	}];
-	goodbyeWorldCell = @"Say Goodbye";
+	goodbyeWorldCell.textLabel.text = @"Say Goodbye";
 	
-	OrganicSection = *mySection = [OrganicSection sectionWithHeaderTitle:@"Welcome" cells:@[helloWorldCell, goodbyeWorldCell]];
+	OrganicSection *firstSection = [OrganicSection sectionWithHeaderTitle:@"Welcome" cells:@[helloWorldCell, goodbyeWorldCell]];
 	
-	self.sections = @[mySection];
+	OrganicCell *randomCell = [OrganicCell cellWithStyle:UITableViewCellStyleSubtitle height:44 actionBlock:^{
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+			[[[UIAlertView alloc] initWithTitle:@"Java" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+		});
+	}];
+	randomCell.textLabel.text = @"Knock knock...";
+	randomCell.detailTextLabel.text = @"Who's there?";
+	
+	OrganicSection *secondSection = [OrganicSection sectionWithCells:@[randomCell]];
+	
+	self.sections = @[firstSecion, secondSection];
 }
 ```
 
@@ -97,47 +107,74 @@ We just created an extremely simple table view controller with only a few lines 
 
 ```objective-c
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 1;
-}
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     return 2;
 }
 
+- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
+	if (section == 0) {
+		return 2;
+	}
+	
+	else {
+		return 1;
+	}
+}
+
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        return 40;
-    }
+	if (indexPath.section == 0) {
+		if (indexPath.row == 0) {
+			return 40;
+    	}
     
-    else {
-        return 55;
-    }
+		else {
+			return 55;
+		}
+	}
+	
+	else {
+		return 44;
+	}
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-    if (indexPath.row == 0) {
-        UITableViewCell *helloWorldCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        helloWorldCell.textLabel.text = @"Say Hello";
-        return helloWorldCell;
-    }
+	if (indexPath.section == 0) {
+		if (indexPath.row == 0) {
+			UITableViewCell *helloWorldCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+			helloWorldCell.textLabel.text = @"Say Hello";
+			return helloWorldCell;
+		}
     
-    else {
-        UITableViewCell *goodbyeWorldCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-        goodbyeWorldCell.textLabel.text = @"Say Goodbye";
-        return goodbyeWorldCell;
-    }
+		else {
+			UITableViewCell *goodbyeWorldCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+			goodbyeWorldCell.textLabel.text = @"Say Goodbye";
+			return goodbyeWorldCell;
+		}
+	else {
+		UITableViewCell *boringCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+		boringCell.textLabel.text = @"Knock knock..";
+		boringCell.detailTextLabel.text = @"Who's there?";
+		return boringCell;	
+	}
 }
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
-    if (indexPath.row == 0) {
-        [[[UIAlertView alloc] initWithTitle:@"Hello World" message:@"Organic is awesome!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }
+    if (indexPath.section == 0) {
+    	if (indexPath.row == 0) {
+			[[[UIAlertView alloc] initWithTitle:@"Hello World" message:@"Organic is awesome!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+		}
     
-    else {
-        [[[UIAlertView alloc] initWithTitle:@"Goodbye World" message:@"Toodles!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-    }
+		else {
+			[[[UIAlertView alloc] initWithTitle:@"Goodbye World" message:@"Toodles!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+		}	
+	}
+	
+	else {
+		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+			[[[UIAlertView alloc] initWithTitle:@"Java" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+		});
+	}
 }
 ```
 
