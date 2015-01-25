@@ -180,7 +180,7 @@ We just created an extremely simple table view controller with only a few lines 
 
 Now consider what you'd have to do if you wanted to switch around the order of the cells, or add another cell into the section in between, or add another section and move one cell to the other.
 
-Using `Organic` reduced the code in the above example, which was just about the simplest table view controller possible, by about over 70%. (~10 lines vs. ~36 lines). It will make the initial implementation drastically quicker, and will make maintanence a breeze, or your money back.
+Using `Organic` reduced the code in the above example, which was one of the simplest table view controllers possible, by about 2/3. It will make the initial implementation drastically quicker, and will make maintanence a breeze, or your money back.
 
 Community
 ====
