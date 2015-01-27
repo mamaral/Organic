@@ -76,4 +76,17 @@
     return section;
 }
 
+
+#pragma mark - Reuse
+
+- (void)enableReuseWithCellCount:(NSInteger)cellCount reuseIdentifier:(NSString *)identifier style:(UITableViewCellStyle)style height:(CGFloat)height cellCustomizationBlock:(CellCustomizationBlock)customizationBlock actionBlock:(CellActionBlock)actionBlock {
+    _reuseEnabled = YES;
+    _reusedCellCount = cellCount;
+    _cellReuseIdentifier = identifier;
+    _reusedCellStyle = style;
+    _reusedCellHeight = height;
+    _reusedCellCustomizationBlock = customizationBlock;
+    _reusedCellActionBlock = actionBlock;
+}
+
 @end
