@@ -60,19 +60,38 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
     OrganicSection *organicSection = self.sections[section];
-    return organicSection.cells.count;
+    return organicSection.reuseEnabled ? organicSection.reusedCellCount : organicSection.cells.count;
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     OrganicSection *organicSection = self.sections[indexPath.section];
     
-    OrganicCell *cell = organicSection.cells[indexPath.row];
-    return cell.height;
+    if (organicSection.reuseEnabled) {
+        return organicSection.reusedCellHeight;
+    }
+    
+    else {
+        OrganicCell *cell = organicSection.cells[indexPath.row];
+        return cell.height;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     OrganicSection *organicSection = self.sections[indexPath.section];
-    return organicSection.cells[indexPath.row];
+    
+    if (organicSection.reuseEnabled) {
+        OrganicCell *reusedCell = [tableView dequeueReusableCellWithIdentifier:organicSection.cellReuseIdentifier];
+        
+        if (!reusedCell) {
+            reusedCell = [[OrganicCell alloc] initWithStyle:organicSection.reusedCellStyle reuseIdentifier:organicSection.cellReuseIdentifier];
+        }
+        
+        return organicSection.reusedCellCustomizationBlock(indexPath.row, reusedCell);
+    }
+    
+    else {
+        return organicSection.cells[indexPath.row];
+    }
 }
 
 
@@ -83,10 +102,18 @@
 
     OrganicSection *organicSection = self.sections[indexPath.section];
     
-    OrganicCell *cell = organicSection.cells[indexPath.row];
+    if (organicSection.reuseEnabled) {
+        if (organicSection.reusedCellActionBlock) {
+            organicSection.reusedCellActionBlock(indexPath.row);
+        }
+    }
     
-    if (cell.actionBlock) {
-        cell.actionBlock();
+    else {
+        OrganicCell *cell = organicSection.cells[indexPath.row];
+        
+        if (cell.actionBlock) {
+            cell.actionBlock();
+        }
     }
 }
 
