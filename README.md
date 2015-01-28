@@ -86,32 +86,50 @@ First, subclass `OrganicViewController`. You can choose when/where to define you
 Here is a simple example that can easily be scaled to whatever degree you desire.
 
 ```objective-c
-- (void)viewDidLoad {
-	[super viewDidLoad];
-	
-	OrganicCell *helloWorldCell = [OrganicCell cellWithStyle:UITableViewCellStyleDefault height:40 actionBlock:^{
-		[[[UIAlertView alloc] initWithTitle:@"Hello World" message:@"Organic is awesome!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-	}];
-	helloWorldCell.textLabel.text = @"Say Hello";
-	
-	OrganicCell *goodbyeWorldCell = [OrganicCell cellWithStyle:UITableViewCellStyleDefault height:55 actionBlock:^{
-		[[[UIAlertView alloc] initWithTitle:@"Goodbye World" message:@"Toodles!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-	}];
-	goodbyeWorldCell.textLabel.text = @"Say Goodbye";
-	
-	OrganicSection *firstSection = [OrganicSection sectionWithHeaderTitle:@"Welcome" cells:@[helloWorldCell, goodbyeWorldCell]];
-	
-	OrganicCell *randomCell = [OrganicCell cellWithStyle:UITableViewCellStyleSubtitle height:44 actionBlock:^{
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-			[[[UIAlertView alloc] initWithTitle:@"Java" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-		});
-	}];
-	randomCell.textLabel.text = @"Knock knock...";
-	randomCell.detailTextLabel.text = @"Who's there?";
-	
-	OrganicSection *secondSection = [OrganicSection sectionWithCells:@[randomCell]];
-	
-	self.sections = @[firstSecion, secondSection];
+- (void)viewWillAppear:(BOOL)animated {
+    [super viewWillAppear:animated];
+    
+    OrganicCell *helloWorldCell = [OrganicCell cellWithStyle:UITableViewCellStyleDefault height:40 actionBlock:^{
+        [[[UIAlertView alloc] initWithTitle:@"Hello World" message:@"Organic is awesome!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }];
+    helloWorldCell.textLabel.text = @"Say Hello";
+    
+    OrganicCell *goodbyeWorldCell = [OrganicCell cellWithStyle:UITableViewCellStyleDefault height:55 actionBlock:^{
+        [[[UIAlertView alloc] initWithTitle:@"Goodbye World" message:@"Toodles!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }];
+    goodbyeWorldCell.textLabel.text = @"Say Goodbye";
+    
+    OrganicSection *firstStaticSection = [OrganicSection sectionWithHeaderTitle:@"Welcome" cells:@[helloWorldCell, goodbyeWorldCell]];
+    
+    OrganicCell *randomCell = [OrganicCell cellWithStyle:UITableViewCellStyleSubtitle height:44 actionBlock:^{
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [[[UIAlertView alloc] initWithTitle:@"Java" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        });
+    }];
+    randomCell.textLabel.text = @"Knock knock...";
+    randomCell.detailTextLabel.text = @"Who's there?";
+    
+    OrganicSection *secondStaticSection = [OrganicSection sectionWithCells:@[randomCell]];
+    
+    NSArray *demoDataSource = @[@"One", @"Two", @"Three"];
+    OrganicSection *sectionWithReuse = [OrganicSection sectionSupportingReuseWithTitle:@"Section with Reuse" cellCount:demoDataSource.count cellHeight:55 cellForRowBlock:^UITableViewCell *(UITableView *tableView, NSInteger row) {
+        static NSString *cellReuseID = @"CellReuseID";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReuseID];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellReuseID];
+        }
+        
+        cell.textLabel.text = demoDataSource[row];
+        
+        return cell;
+        
+    } actionBlock:^(NSInteger row) {
+        [[[UIAlertView alloc] initWithTitle:@"You tapped:" message:demoDataSource[row] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }];
+    
+    self.sections = @[firstStaticSection, secondStaticSection, sectionWithReuse];
 }
 ```
 
@@ -121,80 +139,107 @@ We just created an extremely simple table view controller with only a few lines 
 
 ```objective-c
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
-    return 2;
+    return 3;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
-	if (section == 0) {
-		return 2;
-	}
-	
-	else {
-		return 1;
-	}
+    if (section == 0) {
+        return 2;
+    }
+    
+    else if (section == 1) {
+        return 1;
+    }
+    
+    else {
+        return demoDataSource.count;
+    }
 }
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0) {
-		if (indexPath.row == 0) {
-			return 40;
-    	}
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            return 40;
+        }
+        
+        else {
+            return 55;
+        }
+    }
     
-		else {
-			return 55;
-		}
-	}
-	
-	else {
-		return 44;
-	}
+    else if (indexPath.section == 1) {
+        return 44;
+    }
+    
+    else {
+        return 55;
+    }
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
-	if (indexPath.section == 0) {
-		if (indexPath.row == 0) {
-			UITableViewCell *helloWorldCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-			helloWorldCell.textLabel.text = @"Say Hello";
-			return helloWorldCell;
-		}
+    if (indexPath.section == 0) {
+        if (indexPath.row == 0) {
+            UITableViewCell *helloWorldCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+            helloWorldCell.textLabel.text = @"Say Hello";
+            return helloWorldCell;
+        }
+        
+        else {
+            UITableViewCell *goodbyeWorldCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
+            goodbyeWorldCell.textLabel.text = @"Say Goodbye";
+            return goodbyeWorldCell;
+        }
+    }
+    else if (indexPath.section == 1) {
+        UITableViewCell *boringCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
+        boringCell.textLabel.text = @"Knock knock..";
+        boringCell.detailTextLabel.text = @"Who's there?";
+        return boringCell;
+    }
     
-		else {
-			UITableViewCell *goodbyeWorldCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:nil];
-			goodbyeWorldCell.textLabel.text = @"Say Goodbye";
-			return goodbyeWorldCell;
-		}
-	else {
-		UITableViewCell *boringCell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:nil];
-		boringCell.textLabel.text = @"Knock knock..";
-		boringCell.detailTextLabel.text = @"Who's there?";
-		return boringCell;	
-	}
+    else {
+        static NSString *cellReuseID = @"CellReuseID";
+        
+        UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:cellReuseID];
+        
+        if (!cell) {
+            cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:cellReuseID];
+        }
+        
+        cell.textLabel.text = demoDataSource[indexPath.row];
+        
+        return cell;
+    }
 }
-
+    
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath {
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     if (indexPath.section == 0) {
-    	if (indexPath.row == 0) {
-			[[[UIAlertView alloc] initWithTitle:@"Hello World" message:@"Organic is awesome!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-		}
+        if (indexPath.row == 0) {
+            [[[UIAlertView alloc] initWithTitle:@"Hello World" message:@"Organic is awesome!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+        
+        else {
+            [[[UIAlertView alloc] initWithTitle:@"Goodbye World" message:@"Toodles!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }
+    }
     
-		else {
-			[[[UIAlertView alloc] initWithTitle:@"Goodbye World" message:@"Toodles!" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-		}	
-	}
-	
-	else {
-		dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-			[[[UIAlertView alloc] initWithTitle:@"Java" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
-		});
-	}
+    else if (indexPath.section == 1) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 10 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+            [[[UIAlertView alloc] initWithTitle:@"Java" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        });
+    }
+    
+    else {
+        [[[UIAlertView alloc] initWithTitle:@"You tapped:" message:demoDataSource[indexPath.row] delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+    }
 }
 ```
 
 Now consider what you'd have to do if you wanted to switch around the order of the cells, or add another cell into the section in between, or add another section and move one cell to the other.
 
-Using `Organic` reduced the code in the above example, which was one of the simplest table view controllers possible, by about 2/3. It will make the initial implementation drastically quicker, and will make maintanence a breeze, or your money back.
+Using `Organic` reduced the code in the above example, which was one of the simplest table view controllers possible, by about 60%. It will make the initial implementation drastically quicker, and will make maintanence a breeze, or your money back.
 
 Community
 ====
