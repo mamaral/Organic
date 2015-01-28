@@ -53,13 +53,25 @@
         
         OrganicSection *profileSection = [OrganicSection sectionWithHeaderTitle:@"Profile" cells:@[profileCell, statsCell, infoCell]];
         
-        NSMutableArray *repositoryCells = [NSMutableArray array];
+        OrganicSection *reposSection = [OrganicSection sectionWithHeaderTitle:@"Popular Repositories" cells:nil];
         
-        for (NSDictionary *repoDict in repos) {
-            [repositoryCells addObject:[[RepositoryCell alloc] initWithRepoDict:repoDict]];
-        }
-        
-        OrganicSection *reposSection = [OrganicSection sectionWithHeaderTitle:@"Popular Repositories" cells:repositoryCells];
+        [reposSection enableReuseCellCount:repos.count cellHeight:110 cellForRowBlock:^UITableViewCell *(UITableView *tableView, NSInteger row) {
+            RepositoryCell *repoCell = [tableView dequeueReusableCellWithIdentifier:@"RepoCell"];
+            
+            if (!repoCell) {
+                repoCell = [RepositoryCell new];
+            }
+            
+            repoCell.repoDictionary = repos[row];
+            
+            return repoCell;
+            
+        } actionBlock:^(NSInteger row) {
+            NSDictionary *repoDict = repos[row];
+            NSString *message = [NSString stringWithFormat:@"You just tapped on the cell for %@", repoDict[@"name"]];
+            
+            [[[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
+        }];
         
         self.sections = [@[profileSection, reposSection] mutableCopy];
     }];

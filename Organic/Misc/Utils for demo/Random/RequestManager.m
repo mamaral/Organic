@@ -24,13 +24,13 @@
 - (void)getGitHubDetailsForUser:(NSString *)user handler:(void (^)(NSError *error, NSDictionary *user, NSArray *repos))handler {
     NSString *userURL = [NSString stringWithFormat:@"https://api.github.com/users/%@", user];
     NSString *reposURL = [NSString stringWithFormat:@"https://api.github.com/users/%@/repos", user];
-    [self sendRequestToURL:userURL method:@"GET" withBody:@{@"client_id": @"94f4646caf89d8b2c28e", @"client_secret": @"1b6c6213a31d6f1a289079e1aa1da0afdf7a96da"} completionHandler:^(NSDictionary *userInfoDict, NSError *error) {
+    [self sendRequestToURL:userURL method:@"GET" withBody:nil completionHandler:^(NSDictionary *userInfoDict, NSError *error) {
         if (error) {
             handler(error, nil, nil);
             return;
         }
         
-        [self sendRequestToURL:reposURL method:@"GET" withBody:@{@"type": @"owner", @"client_id": @"94f4646caf89d8b2c28e", @"client_secret": @"1b6c6213a31d6f1a289079e1aa1da0afdf7a96da"} completionHandler:^(NSArray *repos, NSError *error) {
+        [self sendRequestToURL:reposURL method:@"GET" withBody:@{@"type": @"owner"} completionHandler:^(NSArray *repos, NSError *error) {
             if (error) {
                 handler(error, nil, nil);
                 return;
@@ -39,9 +39,7 @@
             NSSortDescriptor *sortDescriptor = [[NSSortDescriptor alloc] initWithKey:@"stargazers_count" ascending:NO];
             NSArray *sortedArray = [repos sortedArrayUsingDescriptors:@[sortDescriptor]];
             
-            NSInteger maxReposToShow = 4;
-            NSInteger maxRange = sortedArray.count > maxReposToShow ? maxReposToShow : sortedArray.count;
-            handler(nil, userInfoDict, [sortedArray subarrayWithRange:NSMakeRange(0, maxRange)]);
+            handler(nil, userInfoDict, sortedArray);
         }];
     }];
 }

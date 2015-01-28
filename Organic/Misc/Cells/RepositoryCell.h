@@ -10,6 +10,6 @@
 
 @interface RepositoryCell : OrganicCell
 
-- (instancetype)initWithRepoDict:(NSDictionary *)repoDict;
+@property (nonatomic, strong) NSDictionary *repoDictionary;
 
 @end

@@ -9,17 +9,23 @@
 #import "RepositoryCell.h"
 
 @implementation RepositoryCell {
-    NSDictionary *_repoDict;
+    UILabel *_repoNameLabel;
+    UILabel *_repoDescriptionLabel;
+    UILabel *_watchersLabel;
+    UILabel *_starsLabel;
+    UILabel *_forksLabel;
+    
+    UIImageView *_watchersIcon;
+    UIImageView *_starIcon;
+    UIImageView *_forkIcon;
 }
 
-- (instancetype)initWithRepoDict:(NSDictionary *)repoDict {
-    self = [super init];
+- (instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString *)reuseIdentifier {
+    self = [super initWithStyle:style reuseIdentifier:reuseIdentifier];
     
     if (!self) {
         return nil;
     }
-    
-    _repoDict = repoDict;
     
     [self generateProfileCell];
     
@@ -27,62 +33,77 @@
 }
 
 - (void)generateProfileCell {
-    self.selectionStyle = UITableViewCellSelectionStyleNone;
+    _repoNameLabel = [UILabel new];
+    _repoNameLabel.font = [UIFont boldSystemFontOfSize:20];
+    _repoNameLabel.textColor = [UIColor colorWithRed:65/255.0 green:131/255.0 blue:196/255.0 alpha:1.0];
+    [self.contentView addSubview:_repoNameLabel];
+    
+    _repoDescriptionLabel = [UILabel new];
+    _repoDescriptionLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+    _repoDescriptionLabel.font = [UIFont systemFontOfSize:13];
+    _repoDescriptionLabel.numberOfLines = 3;
+    [self.contentView addSubview:_repoDescriptionLabel];
+
+    _watchersIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"watcher"]];
+    [self.contentView addSubview:_watchersIcon];
+    
+    _watchersLabel = [UILabel new];
+    _watchersLabel.font = [UIFont systemFontOfSize:12];
+    _watchersLabel.textColor = [UIColor darkGrayColor];
+    [self.contentView addSubview:_watchersLabel];
+    
+    _starIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"star"]];
+    [self.contentView addSubview:_starIcon];
+    
+    _starsLabel = [UILabel new];
+    _starsLabel.font = [UIFont systemFontOfSize:12];
+    _starsLabel.textColor = [UIColor darkGrayColor];
+    [self.contentView addSubview:_starsLabel];
+    
+    _forkIcon = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"fork"]];
+    [self.contentView addSubview:_forkIcon];
+    
+    _forksLabel = [UILabel new];
+    _forksLabel.font = [UIFont systemFontOfSize:12];
+    _forksLabel.textColor = [UIColor darkGrayColor];
+    [self.contentView addSubview:_forksLabel];
+}
+
+- (void)setRepoDictionary:(NSDictionary *)repoDictionary {
+    _repoDictionary = repoDictionary;
     
     CGFloat padding = 10;
     
-    UILabel *repoNameLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, padding, 300, 22)];
-    repoNameLabel.text = _repoDict[@"name"];
-    repoNameLabel.font = [UIFont boldSystemFontOfSize:20];
-    repoNameLabel.textColor = [UIColor colorWithRed:65/255.0 green:131/255.0 blue:196/255.0 alpha:1.0];
-    [self.contentView addSubview:repoNameLabel];
+    _repoNameLabel.frame = CGRectMake(padding, padding, 300, 22);
+    _repoNameLabel.text = _repoDictionary[@"name"];
     
-    UILabel *repoDescriptionLabel = [[UILabel alloc] initWithFrame:CGRectMake(padding, CGRectGetMaxY(repoNameLabel.frame), CGRectGetWidth(self.contentView.frame) - (2 * padding), 50)];
-    repoDescriptionLabel.autoresizingMask = UIViewAutoresizingFlexibleWidth;
-    repoDescriptionLabel.text = _repoDict[@"description"];
-    repoDescriptionLabel.font = [UIFont systemFontOfSize:13];
-    repoDescriptionLabel.numberOfLines = 3;
-    [repoDescriptionLabel sizeToFit];
-    [self.contentView addSubview:repoDescriptionLabel];
+    _repoDescriptionLabel.frame = CGRectMake(padding, CGRectGetMaxY(_repoNameLabel.frame), CGRectGetWidth(self.contentView.frame) - (2 * padding), 50);
+    _repoDescriptionLabel.text = _repoDictionary[@"description"];
+    [_repoDescriptionLabel sizeToFit];
     
     CGFloat iconSize = 14;
     CGFloat iconPadding = 4;
-    CGFloat iconYOrigin = CGRectGetMaxY(repoDescriptionLabel.frame) + iconPadding;
+    CGFloat iconYOrigin = CGRectGetMaxY(_repoDescriptionLabel.frame) + iconPadding;
     
-    UIImageView *watchersIcon = [[UIImageView alloc] initWithFrame:CGRectMake(padding, iconYOrigin, iconSize, iconSize)];
-    watchersIcon.image = [UIImage imageNamed:@"watcher"];
-    [self.contentView addSubview:watchersIcon];
+    _watchersIcon.frame = CGRectMake(padding, iconYOrigin, iconSize, iconSize);
     
-    UILabel *watchersLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(watchersIcon.frame) + iconPadding, iconYOrigin, 10, iconSize)];
-    watchersLabel.text = [_repoDict[@"watchers_count"] stringValue];
-    watchersLabel.font = [UIFont systemFontOfSize:12];
-    watchersLabel.textColor = [UIColor darkGrayColor];
-    [watchersLabel sizeToFit];
-    [self.contentView addSubview:watchersLabel];
+    _watchersLabel.frame = CGRectMake(CGRectGetMaxX(_watchersIcon.frame) + iconPadding, iconYOrigin, 10, iconSize);
+    _watchersLabel.text = [_repoDictionary[@"watchers_count"] stringValue];
+    [_watchersLabel sizeToFit];
     
-    UIImageView *starIcon = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(watchersLabel.frame) + (4 * iconPadding), iconYOrigin, iconSize, iconSize)];
-    starIcon.image = [UIImage imageNamed:@"star"];
-    [self.contentView addSubview:starIcon];
+    _starIcon.frame = CGRectMake(CGRectGetMaxX(_watchersLabel.frame) + (4 * iconPadding), iconYOrigin, iconSize, iconSize);
     
-    UILabel *starsLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(starIcon.frame) + iconPadding, iconYOrigin, 10, iconSize)];
-    starsLabel.text = [_repoDict[@"stargazers_count"] stringValue];
-    starsLabel.font = [UIFont systemFontOfSize:12];
-    starsLabel.textColor = [UIColor darkGrayColor];
-    [starsLabel sizeToFit];
-    [self.contentView addSubview:starsLabel];
+    _starsLabel.frame = CGRectMake(CGRectGetMaxX(_starIcon.frame) + iconPadding, iconYOrigin, 10, iconSize);
+    _starsLabel.text = [_repoDictionary[@"stargazers_count"] stringValue];
+    [_starsLabel sizeToFit];
     
-    UIImageView *forkIcon = [[UIImageView alloc] initWithFrame:CGRectMake(CGRectGetMaxX(starsLabel.frame) + (4 * iconPadding), iconYOrigin, iconSize, iconSize)];
-    forkIcon.image = [UIImage imageNamed:@"fork"];
-    [self.contentView addSubview:forkIcon];
+    _forkIcon.frame = CGRectMake(CGRectGetMaxX(_starsLabel.frame) + (4 * iconPadding), iconYOrigin, iconSize, iconSize);
     
-    UILabel *forksLabel = [[UILabel alloc] initWithFrame:CGRectMake(CGRectGetMaxX(forkIcon.frame) + iconPadding, iconYOrigin, 10, iconSize)];
-    forksLabel.text = [_repoDict[@"forks"] stringValue];
-    forksLabel.font = [UIFont systemFontOfSize:12];
-    forksLabel.textColor = [UIColor darkGrayColor];
-    [forksLabel sizeToFit];
-    [self.contentView addSubview:forksLabel];
+    _forksLabel.frame = CGRectMake(CGRectGetMaxX(_forkIcon.frame) + iconPadding, iconYOrigin, 10, iconSize);
+    _forksLabel.text = [_repoDictionary[@"forks"] stringValue];
+    [_forksLabel sizeToFit];
     
-    self.height = CGRectGetMaxY(watchersIcon.frame) + padding;
+    self.height = CGRectGetMaxY(_watchersIcon.frame) + padding;
 }
 
 @end
