@@ -34,7 +34,7 @@ typedef void (^CellActionBlock)(NSInteger row);
 @property (nonatomic, copy, readonly) CellActionBlock reusedCellActionBlock;
 
 
-#pragma mark - Convenience initializers
+#pragma mark - Convenience initializers without reuse
 
 + (instancetype)sectionWithCells:(NSArray *)cells;
 + (instancetype)sectionWithHeaderTitle:(NSString *)headerTitle cells:(NSArray *)cells;
@@ -48,8 +48,8 @@ typedef void (^CellActionBlock)(NSInteger row);
 + (instancetype)sectionWithHeaderTitle:(NSString *)headerTitle headerView:(UIView *)headerView headerHeight:(CGFloat)headerHeight footerTitle:(NSString *)footerTitle footerView:(UIView *)footerView footerHeight:(CGFloat)footerHeight cells:(NSArray *)cells;
 
 
-#pragma mark - Reuse
+#pragma mark - Using cell reuse
 
-- (void)enableReuseCellCount:(NSInteger)cellCount cellHeight:(CGFloat)cellHeight cellForRowBlock:(CellForRowBlock)cellForRowBlock actionBlock:(CellActionBlock)actionBlock;
++ (instancetype)sectionSupportingReuseWithTitle:(NSString *)title cellCount:(NSInteger)cellCount cellHeight:(CGFloat)cellHeight cellForRowBlock:(CellForRowBlock)cellForRowBlock actionBlock:(CellActionBlock)actionBlock;
 
 @end

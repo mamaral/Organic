@@ -79,12 +79,21 @@
 
 #pragma mark - Reuse
 
-- (void)enableReuseCellCount:(NSInteger)cellCount cellHeight:(CGFloat)cellHeight cellForRowBlock:(CellForRowBlock)cellForRowBlock actionBlock:(CellActionBlock)actionBlock {
++ (instancetype)sectionSupportingReuseWithTitle:(NSString *)title cellCount:(NSInteger)cellCount cellHeight:(CGFloat)cellHeight cellForRowBlock:(CellForRowBlock)cellForRowBlock actionBlock:(CellActionBlock)actionBlock {
+    return [[[self class] alloc] initSectionSupportingReuseWithTitle:title cellCount:cellCount cellHeight:cellHeight cellForRowBlock:cellForRowBlock actionBlock:actionBlock];
+}
+
+- (instancetype)initSectionSupportingReuseWithTitle:(NSString *)title cellCount:(NSInteger)cellCount cellHeight:(CGFloat)cellHeight cellForRowBlock:(CellForRowBlock)cellForRowBlock actionBlock:(CellActionBlock)actionBlock {
+    self = [[self class] sectionWithHeaderTitle:title cells:nil];
+    
     _reuseEnabled = YES;
     _reusedCellCount = cellCount;
     _reusedCellHeight = cellHeight;
     _cellForRowBlock = cellForRowBlock;
     _reusedCellActionBlock = actionBlock;
+    
+    return self;
 }
+
 
 @end
