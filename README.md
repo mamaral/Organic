@@ -83,7 +83,7 @@ Putting It All Together
 
 First, subclass `OrganicViewController`. You can choose when/where to define your sections. `viewDidLoad` or `viewWillAppear:` are two decent candidates. Create your cells, insert them into sections, insert the sections in an array in the order you want, and set them as the `sections` property. There is no need to `reloadData` after doing this, setting the sections will take care of that automatically.
 
-Here is a simple example that can easily be scaled to whatever degree you desire.
+Here is a simple example of a table view with three section, two that are pre-built, and one that supports reuse, and could easily be scaled to whatever degree you desire. All of the heights, actions, titles, etc., are kept logically in the same place, where they belong.
 
 ```objective-c
 - (void)viewWillAppear:(BOOL)animated {
@@ -140,6 +140,20 @@ We just created an extremely simple table view controller with only a few lines 
 ```objective-c
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView {
     return 3;
+}
+
+- (NSString *)tableView:(UITableView *)tableView titleForHeaderInSection:(NSInteger)section {
+	if (section == 0) {
+		return @"Welcome";
+	}
+	
+	else if (section == 2) {
+		return @"Section with Reuse";
+	}
+	
+	else {
+		return nil;
+	}
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section {
@@ -239,7 +253,7 @@ We just created an extremely simple table view controller with only a few lines 
 
 Now consider what you'd have to do if you wanted to switch around the order of the cells, or add another cell into the section in between, or add another section and move one cell to the other.
 
-Using `Organic` reduced the code in the above example, which was one of the simplest table view controllers possible, by about 60%. It will make the initial implementation drastically quicker, and will make maintanence a breeze, or your money back.
+Using `Organic` reduced the code in the above example, which was one of the simplest table view controllers possible, by roughly 70%. It will make the initial implementation drastically quicker, and will make maintanence a breeze, or your money back.
 
 Community
 ====
