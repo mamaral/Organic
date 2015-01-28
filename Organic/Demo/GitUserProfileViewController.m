@@ -53,9 +53,7 @@
         
         OrganicSection *profileSection = [OrganicSection sectionWithHeaderTitle:@"Profile" cells:@[profileCell, statsCell, infoCell]];
         
-        OrganicSection *reposSection = [OrganicSection sectionWithHeaderTitle:@"Popular Repositories" cells:nil];
-        
-        [reposSection enableReuseCellCount:repos.count cellHeight:110 cellForRowBlock:^UITableViewCell *(UITableView *tableView, NSInteger row) {
+        OrganicSection *reposSection = [OrganicSection sectionSupportingReuseWithTitle:@"Repositories" cellCount:repos.count cellHeight:110 cellForRowBlock:^UITableViewCell *(UITableView *tableView, NSInteger row) {
             RepositoryCell *repoCell = [tableView dequeueReusableCellWithIdentifier:@"RepoCell"];
             
             if (!repoCell) {
