@@ -13,7 +13,7 @@
 
 @interface OrganicSection : NSObject
 
-typedef UITableViewCell * (^CellCustomizationBlock)(NSInteger row, OrganicCell *recycledCell);
+typedef UITableViewCell * (^CellForRowBlock)(UITableView *tableView, NSInteger row);
 typedef void (^CellActionBlock)(NSInteger row);
 
 @property (nonatomic, strong) NSMutableArray *cells;
@@ -29,10 +29,8 @@ typedef void (^CellActionBlock)(NSInteger row);
 
 @property (nonatomic, readonly) BOOL reuseEnabled;
 @property (nonatomic, readonly) NSInteger reusedCellCount;
-@property (nonatomic, strong, readonly) NSString *cellReuseIdentifier;
-@property (nonatomic, readonly) UITableViewCellStyle reusedCellStyle;
 @property (nonatomic, readonly) CGFloat reusedCellHeight;
-@property (nonatomic, copy, readonly) CellCustomizationBlock reusedCellCustomizationBlock;
+@property (nonatomic, copy, readonly) CellForRowBlock cellForRowBlock;
 @property (nonatomic, copy, readonly) CellActionBlock reusedCellActionBlock;
 
 
@@ -52,6 +50,6 @@ typedef void (^CellActionBlock)(NSInteger row);
 
 #pragma mark - Reuse
 
-- (void)enableReuseWithCellCount:(NSInteger)cellCount reuseIdentifier:(NSString *)identifier style:(UITableViewCellStyle)style height:(CGFloat)height cellCustomizationBlock:(CellCustomizationBlock)customizationBlock actionBlock:(CellActionBlock)actionBlock;
+- (void)enableReuseCellCount:(NSInteger)cellCount cellHeight:(CGFloat)cellHeight cellForRowBlock:(CellForRowBlock)cellForRowBlock actionBlock:(CellActionBlock)actionBlock;
 
 @end

@@ -79,13 +79,11 @@
 
 #pragma mark - Reuse
 
-- (void)enableReuseWithCellCount:(NSInteger)cellCount reuseIdentifier:(NSString *)identifier style:(UITableViewCellStyle)style height:(CGFloat)height cellCustomizationBlock:(CellCustomizationBlock)customizationBlock actionBlock:(CellActionBlock)actionBlock {
+- (void)enableReuseCellCount:(NSInteger)cellCount cellHeight:(CGFloat)cellHeight cellForRowBlock:(CellForRowBlock)cellForRowBlock actionBlock:(CellActionBlock)actionBlock {
     _reuseEnabled = YES;
     _reusedCellCount = cellCount;
-    _cellReuseIdentifier = identifier;
-    _reusedCellStyle = style;
-    _reusedCellHeight = height;
-    _reusedCellCustomizationBlock = customizationBlock;
+    _reusedCellHeight = cellHeight;
+    _cellForRowBlock = cellForRowBlock;
     _reusedCellActionBlock = actionBlock;
 }
 

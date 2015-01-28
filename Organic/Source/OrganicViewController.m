@@ -80,13 +80,7 @@
     OrganicSection *organicSection = self.sections[indexPath.section];
     
     if (organicSection.reuseEnabled) {
-        OrganicCell *reusedCell = [tableView dequeueReusableCellWithIdentifier:organicSection.cellReuseIdentifier];
-        
-        if (!reusedCell) {
-            reusedCell = [[OrganicCell alloc] initWithStyle:organicSection.reusedCellStyle reuseIdentifier:organicSection.cellReuseIdentifier];
-        }
-        
-        return organicSection.reusedCellCustomizationBlock(indexPath.row, reusedCell);
+        return organicSection.cellForRowBlock(tableView, indexPath.row);
     }
     
     else {
