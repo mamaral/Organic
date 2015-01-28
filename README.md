@@ -1,6 +1,6 @@
 #Organic [![License](http://img.shields.io/:license-mit-blue.svg)](http://doge.mit-license.org)
 
-A UITableViewController subclass designed with efficiency and maintanence in mind, and tries its best to ***handle just about everything for you.***
+A UITableViewController subclass designed with efficiency and maintenance in mind, and tries its best to ***handle just about everything for you.***
 
 No more if-statements and switches in *every* table view dataSource and delegate method. No more splitting up all the logic for each row and section into a dozen different methods, making addition, removal, or minor alterations to format and layout a headache. We feel your pain, we know the struggle. Moving one section of cells below another, moving cells between sections, adding new cells to existing sections, etc., with a decently-complex table view can be a nightmare, but with `Organic` it's as simple as changing the order of objects in an array.
 
