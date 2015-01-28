@@ -16,7 +16,7 @@
 
 #pragma mark - Setting sections
 
-- (void)setSections:(NSMutableArray *)sections {
+- (void)setSections:(NSArray *)sections {
     _sections = sections;
     
     [self.tableView reloadData];

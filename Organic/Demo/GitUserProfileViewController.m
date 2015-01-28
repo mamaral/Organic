@@ -73,7 +73,7 @@
             [[[UIAlertView alloc] initWithTitle:nil message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil] show];
         }];
         
-        self.sections = [@[profileSection, reposSection] mutableCopy];
+        self.sections = @[profileSection, reposSection];
     }];
 }
 
