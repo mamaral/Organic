@@ -58,7 +58,7 @@
     
     OrganicSection *loginButtonSection = [OrganicSection sectionWithCells:@[loginButtonCell]];
     
-    self.sections = [@[usernameSection, loginButtonSection] mutableCopy];
+    self.sections = @[usernameSection, loginButtonSection];
 }
 
 - (void)viewProfileForUser:(NSString *)user {

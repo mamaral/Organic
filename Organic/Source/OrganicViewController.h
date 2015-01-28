@@ -12,6 +12,6 @@
 
 @interface OrganicViewController : UITableViewController
 
-@property (nonatomic, strong) NSMutableArray *sections;
+@property (nonatomic, strong) NSArray *sections;
 
 @end
