@@ -11,7 +11,6 @@
 		2705F5691A71F5670014411F /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705F5681A71F5670014411F /* AppDelegate.m */; };
 		2705F56B1A71F5670014411F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2705F56A1A71F5670014411F /* Images.xcassets */; };
 		2705F56E1A71F5670014411F /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 2705F56C1A71F5670014411F /* LaunchScreen.xib */; };
-		2705F57A1A71F5680014411F /* OrganicTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 2705F5791A71F5680014411F /* OrganicTests.m */; };
 		273444C71A71F60E002750A7 /* company.png in Resources */ = {isa = PBXBuildFile; fileRef = 273444BE1A71F60E002750A7 /* company.png */; };
 		273444C81A71F60E002750A7 /* email.png in Resources */ = {isa = PBXBuildFile; fileRef = 273444BF1A71F60E002750A7 /* email.png */; };
 		273444C91A71F60E002750A7 /* fork.png in Resources */ = {isa = PBXBuildFile; fileRef = 273444C01A71F60E002750A7 /* fork.png */; };
@@ -52,6 +51,9 @@
 		2734452A1A71F69F002750A7 /* OrganicViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 273445271A71F69F002750A7 /* OrganicViewController.m */; };
 		2734452D1A71F6B6002750A7 /* StatsCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2734452C1A71F6B6002750A7 /* StatsCell.m */; };
 		273445301A71F6C4002750A7 /* TextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2734452F1A71F6C4002750A7 /* TextFieldCell.m */; };
+		27EE54111A7B27D200B38FD7 /* OrganicCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EE54101A7B27D200B38FD7 /* OrganicCellTests.m */; };
+		27EE54131A7B2A3D00B38FD7 /* OrganicSectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EE54121A7B2A3D00B38FD7 /* OrganicSectionTests.m */; };
+		27EE54151A7B371400B38FD7 /* OrganicViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EE54141A7B371400B38FD7 /* OrganicViewControllerTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,7 +76,6 @@
 		2705F56D1A71F5670014411F /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
 		2705F5731A71F5680014411F /* OrganicTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = OrganicTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2705F5781A71F5680014411F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2705F5791A71F5680014411F /* OrganicTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = OrganicTests.m; sourceTree = "<group>"; };
 		273444BE1A71F60E002750A7 /* company.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = company.png; sourceTree = "<group>"; };
 		273444BF1A71F60E002750A7 /* email.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = email.png; sourceTree = "<group>"; };
 		273444C01A71F60E002750A7 /* fork.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = fork.png; sourceTree = "<group>"; };
@@ -147,6 +148,9 @@
 		2734452C1A71F6B6002750A7 /* StatsCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = StatsCell.m; sourceTree = "<group>"; };
 		2734452E1A71F6C4002750A7 /* TextFieldCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TextFieldCell.h; sourceTree = "<group>"; };
 		2734452F1A71F6C4002750A7 /* TextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCell.m; sourceTree = "<group>"; };
+		27EE54101A7B27D200B38FD7 /* OrganicCellTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganicCellTests.m; sourceTree = "<group>"; };
+		27EE54121A7B2A3D00B38FD7 /* OrganicSectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganicSectionTests.m; sourceTree = "<group>"; };
+		27EE54141A7B371400B38FD7 /* OrganicViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganicViewControllerTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -205,7 +209,9 @@
 		2705F5761A71F5680014411F /* OrganicTests */ = {
 			isa = PBXGroup;
 			children = (
-				2705F5791A71F5680014411F /* OrganicTests.m */,
+				27EE54141A7B371400B38FD7 /* OrganicViewControllerTests.m */,
+				27EE54121A7B2A3D00B38FD7 /* OrganicSectionTests.m */,
+				27EE54101A7B27D200B38FD7 /* OrganicCellTests.m */,
 				2705F5771A71F5680014411F /* Supporting Files */,
 			);
 			path = OrganicTests;
@@ -515,7 +521,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2705F57A1A71F5680014411F /* OrganicTests.m in Sources */,
+				27EE54151A7B371400B38FD7 /* OrganicViewControllerTests.m in Sources */,
+				27EE54111A7B27D200B38FD7 /* OrganicCellTests.m in Sources */,
+				27EE54131A7B2A3D00B38FD7 /* OrganicSectionTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
