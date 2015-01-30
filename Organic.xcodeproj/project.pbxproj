@@ -53,6 +53,7 @@
 		273445301A71F6C4002750A7 /* TextFieldCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 2734452F1A71F6C4002750A7 /* TextFieldCell.m */; };
 		27EE54111A7B27D200B38FD7 /* OrganicCellTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EE54101A7B27D200B38FD7 /* OrganicCellTests.m */; };
 		27EE54131A7B2A3D00B38FD7 /* OrganicSectionTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EE54121A7B2A3D00B38FD7 /* OrganicSectionTests.m */; };
+		27EE54151A7B371400B38FD7 /* OrganicViewControllerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 27EE54141A7B371400B38FD7 /* OrganicViewControllerTests.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -149,6 +150,7 @@
 		2734452F1A71F6C4002750A7 /* TextFieldCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TextFieldCell.m; sourceTree = "<group>"; };
 		27EE54101A7B27D200B38FD7 /* OrganicCellTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganicCellTests.m; sourceTree = "<group>"; };
 		27EE54121A7B2A3D00B38FD7 /* OrganicSectionTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganicSectionTests.m; sourceTree = "<group>"; };
+		27EE54141A7B371400B38FD7 /* OrganicViewControllerTests.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = OrganicViewControllerTests.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +209,7 @@
 		2705F5761A71F5680014411F /* OrganicTests */ = {
 			isa = PBXGroup;
 			children = (
+				27EE54141A7B371400B38FD7 /* OrganicViewControllerTests.m */,
 				27EE54121A7B2A3D00B38FD7 /* OrganicSectionTests.m */,
 				27EE54101A7B27D200B38FD7 /* OrganicCellTests.m */,
 				2705F5771A71F5680014411F /* Supporting Files */,
@@ -518,6 +521,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				27EE54151A7B371400B38FD7 /* OrganicViewControllerTests.m in Sources */,
 				27EE54111A7B27D200B38FD7 /* OrganicCellTests.m in Sources */,
 				27EE54131A7B2A3D00B38FD7 /* OrganicSectionTests.m in Sources */,
 			);
