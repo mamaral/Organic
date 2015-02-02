@@ -39,6 +39,7 @@
     
     OrganicSection *usernameSection = [OrganicSection sectionWithHeaderView:headerView headerHeight:CGRectGetHeight(headerView.frame) cells:@[_usernameCell]];
     
+    __weak typeof(self) weakSelf = self;
     OrganicCell *loginButtonCell = [OrganicCell cellWithStyle:UITableViewCellStyleDefault height:44 actionBlock:^{
         NSString *enteredUsername = _usernameCell.textField.text;
         
@@ -49,7 +50,7 @@
         }
         
         else {
-            [self viewProfileForUser:enteredUsername];
+            [weakSelf viewProfileForUser:enteredUsername];
         }
     }];
     loginButtonCell.textLabel.text = @"View Profile For User";
