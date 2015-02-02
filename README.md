@@ -88,21 +88,22 @@ Here is a simple example of a table view with three section, two that are pre-bu
 ```objective-c
 - (void)viewWillAppear:(BOOL)animated {
 	[super viewWillAppear:animated];
-    
+	
+	__weak typeof(self) weakSelf = self;
 	OrganicCell *helloWorldCell = [OrganicCell cellWithStyle:UITableViewCellStyleDefault height:40 actionBlock:^{
-		[self doA];
+		[weakSelf doA];
 	}];
 	helloWorldCell.textLabel.text = @"Say Hello";
     
 	OrganicCell *goodbyeWorldCell = [OrganicCell cellWithStyle:UITableViewCellStyleDefault height:55 actionBlock:^{
-		[self doB];
+		[weakSelf doB];
 	}];
 	goodbyeWorldCell.textLabel.text = @"Say Goodbye";
     
 	OrganicSection *firstStaticSection = [OrganicSection sectionWithHeaderTitle:@"Welcome" cells:@[helloWorldCell, goodbyeWorldCell]];
     
     OrganicCell *randomCell = [OrganicCell cellWithStyle:UITableViewCellStyleSubtitle height:44 actionBlock:^{
-		[self doC];
+		[weakSelf doC];
 	}];
 	randomCell.textLabel.text = @"Knock knock...";
 	randomCell.detailTextLabel.text = @"Who's there?";
@@ -124,7 +125,7 @@ Here is a simple example of a table view with three section, two that are pre-bu
        return cell;
         
 	} actionBlock:^(NSInteger row) {
-		[self doDForRow:row];
+		[weakSelf doDForRow:row];
 	}];
     
 	self.sections = @[firstStaticSection, secondStaticSection, sectionWithReuse];
