@@ -1,4 +1,7 @@
-#Organic [![License](https://img.shields.io/cocoapods/l/Organic.svg)](http://doge.mit-license.org) [![Build Status](https://img.shields.io/travis/mamaral/Organic.svg)](https://travis-ci.org/mamaral/Organic/) ![Badge w/ Version](https://img.shields.io/cocoapods/v/Organic.svg)
+![demo](Screenshots/logo.png)
+Logo by [T.E.D. Andrick](http://www.liquid-anvil.com/)
+
+[![License](https://img.shields.io/cocoapods/l/Organic.svg)](http://doge.mit-license.org) [![Build Status](https://img.shields.io/travis/mamaral/Organic.svg)](https://travis-ci.org/mamaral/Organic/) ![Badge w/ Version](https://img.shields.io/cocoapods/v/Organic.svg)
 
 A UITableViewController subclass designed with efficiency and maintenance in mind, and tries its best to ***handle just about everything for you.***
 
