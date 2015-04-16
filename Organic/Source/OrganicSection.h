@@ -28,7 +28,7 @@ typedef void (^CellActionBlock)(NSInteger row);
 @property (nonatomic) CGFloat footerHeight;
 
 @property (nonatomic, readonly) BOOL reuseEnabled;
-@property (nonatomic, readonly) NSInteger reusedCellCount;
+@property (nonatomic) NSInteger reusedCellCount;
 @property (nonatomic, readonly) CGFloat reusedCellHeight;
 @property (nonatomic, copy, readonly) CellForRowBlock cellForRowBlock;
 @property (nonatomic, copy, readonly) CellActionBlock reusedCellActionBlock;
