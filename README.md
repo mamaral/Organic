@@ -89,8 +89,8 @@ First, subclass `OrganicViewController`. You can choose when/where to define you
 Here is a simple example of a table view with three section, two that are pre-built, and one that supports reuse, and could easily be scaled to whatever degree you desire. All of the heights, actions, titles, etc., are kept logically in the same place, where they belong.
 
 ```objective-c
-- (void)viewWillAppear:(BOOL)animated {
-	[super viewWillAppear:animated];
+- (void)viewDidLoad {
+	[super viewDidLoad];
 	
 	__weak typeof(self) weakSelf = self;
 	OrganicCell *helloWorldCell = [OrganicCell cellWithStyle:UITableViewCellStyleDefault height:40 actionBlock:^{
