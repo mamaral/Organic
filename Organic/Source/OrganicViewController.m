@@ -65,27 +65,12 @@
 
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath {
     OrganicSection *organicSection = self.sections[indexPath.section];
-    
-    if (organicSection.reuseEnabled) {
-        return organicSection.reusedCellHeight;
-    }
-    
-    else {
-        OrganicCell *cell = organicSection.cells[indexPath.row];
-        return cell.height;
-    }
+    return [organicSection cellHeightForRow:indexPath.row inTableView:tableView];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath {
     OrganicSection *organicSection = self.sections[indexPath.section];
-    
-    if (organicSection.reuseEnabled) {
-        return organicSection.cellForRowBlock(tableView, indexPath.row);
-    }
-    
-    else {
-        return organicSection.cells[indexPath.row];
-    }
+    return [organicSection cellForRow:indexPath.row inTableView:tableView];
 }
 
 

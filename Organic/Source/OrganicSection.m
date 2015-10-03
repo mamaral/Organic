@@ -7,6 +7,7 @@
 //
 
 #import "OrganicSection.h"
+#import "OrganicCell.h"
 
 @implementation OrganicSection
 
@@ -74,6 +75,30 @@
     section.footerHeight = footerHeight;
     section.cells = [cells mutableCopy];
     return section;
+}
+
+
+#pragma mark - TableView delegate methods
+
+- (CGFloat)cellHeightForRow:(NSInteger)row inTableView:(UITableView *)tableView
+{
+    if (self.reuseEnabled) {
+        return self.reusedCellHeight;
+    }
+    else {
+        OrganicCell *cell = self.cells[row];
+        return cell.height;
+    }
+}
+
+- (UITableViewCell *)cellForRow:(NSInteger)row inTableView:(UITableView *)tableView
+{
+    if (self.reuseEnabled) {
+        return self.cellForRowBlock(tableView, row);
+    }
+    else {
+        return self.cells[row];
+    }
 }
 
 

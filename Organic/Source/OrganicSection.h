@@ -33,6 +33,8 @@ typedef void (^CellActionBlock)(NSInteger row);
 @property (nonatomic, copy, readonly) CellForRowBlock cellForRowBlock;
 @property (nonatomic, copy, readonly) CellActionBlock reusedCellActionBlock;
 
+- (CGFloat)cellHeightForRow:(NSInteger)row inTableView:(UITableView *)tableView;
+- (UITableViewCell *)cellForRow:(NSInteger)row inTableView:(UITableView *)tableView;
 
 #pragma mark - Convenience initializers without reuse
 
