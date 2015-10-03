@@ -50,5 +50,6 @@ typedef void (^CellActionBlock)(NSInteger row);
 #pragma mark - Using cell reuse
 
 + (instancetype)sectionSupportingReuseWithTitle:(NSString *)title cellCount:(NSInteger)cellCount cellHeight:(CGFloat)cellHeight cellForRowBlock:(CellForRowBlock)cellForRowBlock actionBlock:(CellActionBlock)actionBlock;
++ (instancetype)sectionSupportingReuseWithHeaderView:(UIView *)headerView headerHeight:(CGFloat)headerHeight cellCount:(NSInteger)cellCount cellHeight:(CGFloat)cellHeight cellForRowBlock:(CellForRowBlock)cellForRowBlock actionBlock:(CellActionBlock)actionBlock;
 
 @end
