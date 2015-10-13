@@ -83,6 +83,10 @@
     return [[[self class] alloc] initSectionSupportingReuseWithTitle:title cellCount:cellCount cellHeight:cellHeight cellForRowBlock:cellForRowBlock actionBlock:actionBlock];
 }
 
++ (instancetype)sectionSupportingReuseWithHeaderView:(UIView *)headerView headerHeight:(CGFloat)headerHeight cellCount:(NSInteger)cellCount cellHeight:(CGFloat)cellHeight cellForRowBlock:(CellForRowBlock)cellForRowBlock actionBlock:(CellActionBlock)actionBlock {
+    return [[[self class] alloc] initSectionSupportingReuseWithHeaderView:headerView headerHeight:headerHeight cellCount:cellCount cellHeight:cellHeight cellForRowBlock:cellForRowBlock actionBlock:actionBlock];
+}
+
 - (instancetype)initSectionSupportingReuseWithTitle:(NSString *)title cellCount:(NSInteger)cellCount cellHeight:(CGFloat)cellHeight cellForRowBlock:(CellForRowBlock)cellForRowBlock actionBlock:(CellActionBlock)actionBlock {
     self = [[self class] sectionWithHeaderTitle:title cells:nil];
     
@@ -95,5 +99,16 @@
     return self;
 }
 
+- (instancetype)initSectionSupportingReuseWithHeaderView:(UIView *)headerView headerHeight:(CGFloat)headerHeight cellCount:(NSInteger)cellCount cellHeight:(CGFloat)cellHeight cellForRowBlock:(CellForRowBlock)cellForRowBlock actionBlock:(CellActionBlock)actionBlock {
+    self = [[self class] sectionWithHeaderView:headerView headerHeight:headerHeight cells:nil];
+    
+    _reuseEnabled = YES;
+    _reusedCellCount = cellCount;
+    _reusedCellHeight = cellHeight;
+    _cellForRowBlock = cellForRowBlock;
+    _reusedCellActionBlock = actionBlock;
+    
+    return self;
+}
 
 @end
